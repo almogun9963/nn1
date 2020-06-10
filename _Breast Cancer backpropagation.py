@@ -71,7 +71,7 @@ data.hist(figsize=(20,20))
 
 #https://en.wikipedia.org/wiki/Heat_map
 #heatmap of the data
-plt.figure(figsize=(20,20))  # on this line I just set the size of figure to 12 by 10.
+plt.figure(figsize=(20,20))  # on this line I just set the size of figure to 20 by 20.
 p=sns.heatmap(data.corr(), annot=True,cmap='RdYlGn')  # seaborn has very simple solution for heatmap
 
 
