@@ -9,7 +9,7 @@ class AdalineAlgo(object):
     def __init__(self, learning_rate=0.0001, epochs=5000):
         self.learning_rate = learning_rate
         self.epochs = epochs
-        # self.random_state = random_state
+        
 
     ## function to train and fix weights
     def train(self, X, y):
