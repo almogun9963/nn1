@@ -21,7 +21,7 @@ def model(x, y):
     # start the time
     start = timeit.default_timer()
 
-    # N- nonrecurre= -1 ,R - recurre =1
+    # R - recurre =1, N- nonrecurre= -1 
     y_train = np.where(y_train == 'N', -1, 1)
     y_test = np.where(y_test == 'N', -1, 1)
 
@@ -38,12 +38,12 @@ def model(x, y):
 
     #  time takes to train in seconds
     stop = timeit.default_timer()
-    execution_time = stop - start
+    finish_time = stop - start
 
     print('Train')
     accuracy_train = accuracy_score(y_train, y_pred) * 100
     print('Accuracy:  %.2f' % accuracy_train, '%')
-    print('Train Executed in : %.2f' % execution_time, 'sec')
+    print('Train finished in : %.2f' % finish_time, 'sec')
 
     # test Adaline
     print('Test')
@@ -51,11 +51,11 @@ def model(x, y):
 
     # time takes to test  in seconds
     newStop = timeit.default_timer()
-    execution_time = newStop - start
+    finish2_time = newStop - start
 
     accuracy_test = accuracy_score(y_test, y_new_pred) * 100
     print('Accuracy:  %.2f' % accuracy_test, '%')
-    print('Train Executed in : %.2f' % execution_time, 'sec')
+    print('Train finished in : %.2f' % finish2_time, 'sec')
 
     # create the model
     knn = KNeighborsClassifier(n_neighbors=1)
@@ -81,11 +81,14 @@ def model(x, y):
     plt.xlabel('Value of K for KNN')
     plt.ylabel('Cross validation Accuracy')
     plt.show()
+    
+    #before cross validation     
     CM = confusion_matrix(y_pred, y_test)
     TN = CM[0][0]
     FN = CM[1][0]
     TP = CM[1][1]
     FP = CM[0][1]
+    
     print("before cross validation")
     print("TRUE NEGATIVE (TN):", TN)
     print("FALSE NEGATIVE (FN):", FN)
@@ -96,13 +99,15 @@ def model(x, y):
     y_pred = knn.predict(x_test)
     # accuracy = metrics.accuracy_score(y_test, y_pred)
     # print('% knn accuracy:', accuracy * 100)
-    print("after cross validation")
+    
+    #after cross validation     
     CM = confusion_matrix(y_pred, y_test)
     TN = CM[0][0]
     FN = CM[1][0]
     TP = CM[1][1]
     FP = CM[0][1]
-
+    
+    print("after cross validation")
     print("TRUE NEGATIVE (TN):", TN)
     print("FALSE NEGATIVE (FN):", FN)
     print("TRUE POSITIVE (TP):", TP)
