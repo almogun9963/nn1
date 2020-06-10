@@ -24,6 +24,7 @@ from sklearn.metrics import classification_report
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import cross_val_score
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 # In[3]:
@@ -60,12 +61,29 @@ data.shape
 # In[5]:
 
 
+#Showing every feature in its own graph
+#The string features i will show in columns diagram
+data.hist(figsize=(20,20))
+
+
+# In[6]:
+
+
+#https://en.wikipedia.org/wiki/Heat_map
+#heatmap of the data
+plt.figure(figsize=(20,20))  # on this line I just set the size of figure to 12 by 10.
+p=sns.heatmap(data.corr(), annot=True,cmap='RdYlGn')  # seaborn has very simple solution for heatmap
+
+
+# In[7]:
+
+
 # setting up y label.
 y = data[['N']]
 y.head(5)
 
 
-# In[6]:
+# In[8]:
 
 
 # setting up x label, aka the features.
@@ -73,7 +91,7 @@ X = data.drop(['N'],axis=1)
 X.head(5)
 
 
-# In[7]:
+# In[9]:
 
 
 #spliting
@@ -81,7 +99,7 @@ x_train, x_test, y_train, y_test = train_test_split(X ,y ,test_size=0.33,random_
 y_train = to_categorical(y_train,num_classes=2)
 
 
-# In[8]:
+# In[10]:
 
 
 # the algorithm backpropagation
@@ -102,22 +120,20 @@ def backpropagation(x_train,y_train,epochs=150,batch_size=10):
     ans = model.predict_classes(x_test,batch_size=1)
     return result_time, ans
 
-    
 
-
-# In[9]:
+# In[11]:
 
 
 time, ans = backpropagation(x_train,y_train)
 
 
-# In[10]:
+# In[12]:
 
 
 print("Duration:",time)
 
 
-# In[11]:
+# In[13]:
 
 
 #getting the TRUE NEGATIVE,FALSE NEGATIVE,FALSE POSITIVE
@@ -134,7 +150,7 @@ print ("FALSE POSITIVE (FP):",FP)
 print(classification_report(ans,y_test))
 
 
-# In[12]:
+# In[14]:
 
 
 
@@ -161,22 +177,4 @@ plt.plot(k_range, k_scores)
 plt.xlabel('Value of K for KNN')
 plt.ylabel('Cross validation Accuracy')
 plt.show()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
